@@ -22,8 +22,17 @@ namespace wa_itstep_hometask_9.Controllers
 
         // GET: api/TodoItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetTodoItems()
+        public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetTodoItems(string query)
         {
+  
+            if (query.Contains("category")) 
+            {
+                return await _context.TodoItems
+                .Select(item => ItemToDTO(item))
+                .Where(item=>item.Category==query)
+                .ToListAsync();
+            }
+
             return await _context.TodoItems
                 .Select(item=>ItemToDTO(item))
                 .ToListAsync();
@@ -164,7 +173,11 @@ namespace wa_itstep_hometask_9.Controllers
             {
                 Id = todoItem.Id,
                 Name = todoItem.Name,
-                IsComplete = todoItem.IsComplete
+                IsComplete = todoItem.IsComplete,
+                Deadline = todoItem.Deadline,
+                Discription = todoItem.Discription,
+                Category = todoItem.Category,
+                Lable = todoItem.Lable
             };
     }
 }

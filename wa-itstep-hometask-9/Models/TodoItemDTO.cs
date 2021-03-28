@@ -13,5 +13,6 @@ namespace wa_itstep_hometask_9.Models
         public bool IsComplete { get; set; }
         public string Category { get; set; }
         public string Lable { get; set; }
+        public string Discription { get; set; }
     }
 }
